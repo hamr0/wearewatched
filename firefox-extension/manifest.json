@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "wearewatched",
+  "version": "0.1.0",
+  "description": "See which APIs fingerprint your device and which permissions sites silently request.",
+  "permissions": ["<all_urls>"],
+  "browser_action": {
+    "default_title": "wearewatched",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": ["inject.js"],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "wearewatched@extension",
+      "strict_min_version": "91.0"
+    }
+  }
+}
