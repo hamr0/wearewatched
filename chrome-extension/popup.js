@@ -52,13 +52,13 @@ function buildVerdict(domain, total) {
   var message;
   if (total === 0) {
     level = "clean";
-    message = "Not watching you.";
+    message = "No tricks detected.";
   } else if (total <= 3) {
     level = "warn";
-    message = "Identifying your device.";
+    message = "ways to identify your device.";
   } else {
     level = "bad";
-    message = "Heavily fingerprinting you.";
+    message = "ways to fingerprint your device.";
   }
 
   var wrap = el("div", "verdict verdict-" + level);
