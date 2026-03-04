@@ -52,13 +52,13 @@ function buildVerdict(domain, total) {
   var message;
   if (total === 0) {
     level = "clean";
-    message = "This site isn't watching you.";
+    message = "Not watching you.";
   } else if (total <= 3) {
     level = "warn";
-    message = domain + " checked " + total + (total === 1 ? " thing" : " things") + " to identify your device.";
+    message = "Identifying your device.";
   } else {
     level = "bad";
-    message = domain + " checked " + total + " things to identify your device. That's a lot.";
+    message = "Heavily fingerprinting you.";
   }
 
   var wrap = el("div", "verdict verdict-" + level);
@@ -68,7 +68,7 @@ function buildVerdict(domain, total) {
   wrap.appendChild(domainEl);
 
   var countEl = el("div", "verdict-count");
-  countEl.textContent = total;
+  countEl.textContent = total + (total === 1 ? " method" : " methods");
   wrap.appendChild(countEl);
 
   var msgEl = el("div", "verdict-message");
