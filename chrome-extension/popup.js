@@ -55,10 +55,10 @@ function buildVerdict(domain, total) {
     message = "Not watching you.";
   } else if (total <= 3) {
     level = "warn";
-    message = total + (total === 1 ? " method" : " methods") + " identifying your device.";
+    message = "Identifying your device.";
   } else {
     level = "bad";
-    message = total + " methods identifying your device.";
+    message = "Heavily fingerprinting you.";
   }
 
   var wrap = el("div", "verdict verdict-" + level);
