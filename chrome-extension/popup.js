@@ -1,8 +1,21 @@
 "use strict";
 
+var FRIENDLY_NAMES = {
+  "Canvas.toDataURL": "Drew a hidden image to ID your device",
+  "WebGL.getParameter": "Read your graphics card info",
+  "AudioContext.createOscillator": "Used audio to fingerprint your device",
+  "Navigator.hardwareConcurrency": "Read your CPU info",
+  "Navigator.languages": "Checked your language settings",
+  "Clipboard.readText": "Tried to read your clipboard",
+  "Clipboard.read": "Tried to read your clipboard",
+  "Geolocation.getCurrentPosition": "Requested your location",
+  "Geolocation.watchPosition": "Tracking your location",
+  "Notification.requestPermission": "Asked to send you notifications"
+};
+
 var CATEGORY_LABELS = {
-  fingerprint: "FINGERPRINTING",
-  permission: "PERMISSION ACCESS"
+  fingerprint: "Identifying your device",
+  permission: "Accessing your data"
 };
 
 var CATEGORY_ORDER = ["fingerprint", "permission"];
@@ -19,15 +32,19 @@ function render(data) {
   var emptyEl = document.getElementById("empty");
 
   if (!data || data.totals.total === 0) {
-    var domain = data ? data.domain : "this site";
+    var domain = data ? stripDomain(data.domain) : "this site";
     verdictEl.appendChild(buildVerdict(domain, 0));
     emptyEl.classList.remove("hidden");
     return;
   }
 
-  verdictEl.appendChild(buildVerdict(data.domain, data.totals.total));
+  verdictEl.appendChild(buildVerdict(stripDomain(data.domain), data.totals.total));
   buildBreakdown(breakdownEl, data.items);
   breakdownEl.classList.remove("hidden");
+}
+
+function stripDomain(hostname) {
+  return hostname.replace(/^www\./, "");
 }
 
 function buildVerdict(domain, total) {
@@ -35,13 +52,13 @@ function buildVerdict(domain, total) {
   var message;
   if (total === 0) {
     level = "clean";
-    message = "No surveillance detected.";
+    message = "This site isn't watching you.";
   } else if (total <= 3) {
     level = "warn";
-    message = total + " surveillance " + (total === 1 ? "method" : "methods") + " detected.";
+    message = domain + " checked " + total + (total === 1 ? " thing" : " things") + " to identify your device.";
   } else {
     level = "bad";
-    message = total + " surveillance methods detected. This site is watching.";
+    message = domain + " checked " + total + " things to identify your device. That's a lot.";
   }
 
   var wrap = el("div", "verdict verdict-" + level);
@@ -85,9 +102,9 @@ function buildBreakdown(container, items) {
     for (var j = 0; j < catItems.length; j++) {
       var row = el("div", "breakdown-row");
 
-      var name = el("span", "row-api");
-      name.textContent = catItems[j].api;
-      row.appendChild(name);
+      var label = el("span", "row-label");
+      label.textContent = FRIENDLY_NAMES[catItems[j].api] || catItems[j].api;
+      row.appendChild(label);
 
       var count = el("span", "row-count");
       count.textContent = catItems[j].count + "x";

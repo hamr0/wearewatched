@@ -121,10 +121,9 @@ h1 {
   font-size: 13px;
 }
 
-.row-api {
+.row-label {
   color: #e0e0e0;
-  font-family: "SF Mono", "Fira Code", monospace;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .row-count {
