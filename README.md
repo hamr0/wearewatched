@@ -6,6 +6,8 @@ Websites can identify your device without storing anything. They read your graph
 
 Everything runs locally. No data leaves your browser.
 
+![wearewatched popup](store-assets/watched.png)
+
 ## What it detects
 
 ### Device fingerprinting
