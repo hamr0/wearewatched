@@ -11,21 +11,21 @@ Everything runs locally. No data leaves your browser.
 ## What it detects
 
 ### Device fingerprinting
-| What you see | What's actually happening |
-|---|---|
-| Drew a hidden image to ID your device | Canvas fingerprinting — renders invisible canvas, exports pixel data as a device signature |
-| Read your graphics card info | WebGL probing — queries GPU vendor, renderer, extensions |
-| Used audio to fingerprint your device | Audio fingerprinting — generates audio signal to profile your audio stack |
-| Read your CPU info | Hardware enumeration — reads logical processor count |
-| Checked your language settings | Language probing — reads full language preference list |
+| What you see | What it means | Why it matters |
+|---|---|---|
+| Drew a hidden image to ID your device | The site draws an invisible picture and reads how your device rendered it — tiny differences in your GPU and drivers make the result unique to you | Acts as a device ID that survives incognito, cookie clearing, and VPNs |
+| Read your graphics card info | Reads your GPU brand, model, and driver version | Narrows your identity — only so many people have your exact card |
+| Used audio to fingerprint your device | Plays a silent sound and measures how your hardware processes it | Like the canvas trick but with audio — another unique signal to stack |
+| Read your CPU info | Reads how many processor cores your device has | Adds to the fingerprint — combined with other signals, helps single you out |
+| Checked your language settings | Reads your full list of preferred languages | Shrinks the pool — "English + Arabic + French" is rarer than just "English" |
 
 ### Permission access
-| What you see | What's actually happening |
-|---|---|
-| Tried to read your clipboard | Clipboard access attempt |
-| Requested your location | GPS coordinate request |
-| Tracking your location | Continuous position monitoring |
-| Asked to send you notifications | Push notification access request |
+| What you see | What it means | Why it matters |
+|---|---|---|
+| Tried to read your clipboard | The site attempted to read whatever you last copied | Could capture passwords, addresses, or private text without you knowing |
+| Requested your location | Asked for your GPS coordinates | Knows exactly where you are, not just your approximate city |
+| Tracking your location | Continuously monitoring your position in real time | Following your movement, not just a one-time check |
+| Asked to send you notifications | Requested permission to push notifications to your device | Often used to spam ads disguised as system alerts |
 
 ## Try It Now
 
